@@ -317,6 +317,36 @@
             }
             Console.WriteLine($"LKKT: {(x0*y0)/x}");
         }
+        static void F32()
+        {
+            int b_se = InputNumber("Add meg a szorzótábla alapját: ");
+            for (int r = 1; r <= 10; r++) Console.WriteLine($"{r} * {b_se} = {r * b_se}");
+        }
+        static void F33()
+        {
+            int b_se = InputNumber("Add meg az összegtábla alapját: ");
+            for (int r = 1; r <= 10; r++) Console.WriteLine($"{r} + {b_se} = {r + b_se}");
+        }
+        static void F34()
+        {
+            Console.Write("Párosával speciális számok: ");
+            int mono = 99;
+            int stereo = 10;
+            while (mono >= 10 && stereo <= 99)
+            {
+                int mono1 = mono / 10;
+                int mono2 = mono % 10;
+                int stereo1 = stereo / 10;
+                int stereo2 = stereo % 10;
+                int mono_f = (mono2 * 10) + mono1;
+                int stereo_f = (stereo2 * 10) + stereo1;
+
+                //pls folytass
+
+                mono--;
+                stereo++;
+            }
+        }
         static int InputNumber(string x)
         {
             Console.Write(x);
@@ -392,6 +422,12 @@
             F30();
             Console.WriteLine("\n31. feladat");
             F31();
+            Console.WriteLine("\n32. feladat");
+            F32();
+            Console.WriteLine("\n33. feladat");
+            F33();
+            Console.WriteLine("\n34. feladat");
+            F34();
         }
     }
 }

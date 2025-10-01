@@ -1,4 +1,6 @@
-﻿namespace SuranyiszFeladatsor
+﻿using System.Text;
+
+namespace SuranyiszFeladatsor
 {
     internal class Program
     {
@@ -330,22 +332,169 @@
         static void F34()
         {
             Console.Write("Párosával speciális számok: ");
-            int mono = 99;
-            int stereo = 10;
-            while (mono >= 10 && stereo <= 99)
+            List<string> parok = [];
+            for (int x = 10; x <= 99; x++)
             {
-                int mono1 = mono / 10;
-                int mono2 = mono % 10;
-                int stereo1 = stereo / 10;
-                int stereo2 = stereo % 10;
-                int mono_f = (mono2 * 10) + mono1;
-                int stereo_f = (stereo2 * 10) + stereo1;
-
-                //pls folytass
-
-                mono--;
-                stereo++;
+                for (int y = 10; y <= 99; y++)
+                {
+                    int x1 = x / 10;
+                    int x2 = x % 10;
+                    int y1 = y / 10;
+                    int y2 = y % 10;
+                    int x_f = (x2 * 10) + x1;
+                    int y_f = (y2 * 10) + y1;
+                    if (x * y == x_f * y_f) parok.Add($"{x} * {y}");
+                }
             }
+            Console.Write(string.Join(", ", parok)+"\n");
+        }
+        static void F35()
+        {
+            char e = 'a';
+            int e_int = Convert.ToInt32(e);
+            List<string> charAscii = new();
+            while (e_int <= Convert.ToInt32('z'))
+            {
+                charAscii.Add($"{(char)e_int} {e_int}");
+                e_int++;
+            }
+            e_int = 0;
+            string[] printable = new string[charAscii.Count/4];
+            bool n = false;
+            foreach (string str in charAscii)
+            {
+                if (!n) printable[e_int] = str;
+                else printable[e_int] += $"\t{str}";
+                e_int++;
+                if (e_int == charAscii.Count / 4)
+                {
+                    e_int = 0;
+                    n = true;
+                }
+            }
+            foreach (string str in printable) Console.WriteLine(str);
+        }
+        static void F36()
+        {
+            int width = InputNumber("Add meg a szélességet: ");
+            int height = InputNumber("Add meg a hosszúságot: ");
+            char[] chars = ['x', 'o'];
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Console.Write(chars[(x+y) % 2]);
+                }
+                Console.Write("\n");
+            }
+            Console.WriteLine();
+        }
+        static void F37()
+        {
+            int y = InputNumber("Add meg a háromszög magasságát: ");
+            string csillag = "*";
+            for (int x = 0; x < y; x++)
+            {
+                Console.WriteLine(csillag);
+                csillag += "**";
+            }
+        }
+        static void F38()
+        {
+            int y = InputNumber("Add meg a háromszög magasságát: ");
+            string csillag = "*";
+            string space = "";
+            for (int z = 0; z < y+1; z++) space += " ";
+            for (int x = 0; x < y; x++)
+            {
+                Console.WriteLine(space+csillag);
+                csillag += "**";
+                space = space.Substring(0, space.Length-1);
+            }
+        }
+        static void F39()
+        {
+            int m = InputNumber("Add meg a szélességet: ");
+            int n = InputNumber("Add meg a magasságot: ");
+            for (int x = 0; x < m; x++)
+            {
+                for (int y = 0; y < n; y++)
+                {
+                    if (x == 0 || x == m-1 || y == 0 || y == n-1)
+                    {
+                        Console.Write('*');
+                    } else
+                    {
+                        Console.Write(' ');
+                    }
+                }
+                Console.Write('\n');
+            }
+        }
+        static void F40()
+        {
+            int maximum = InputNumber("Eddig a számig lesznek a tökéletes számok: ");
+            for (int x = 1; x <= maximum; x++)
+            {
+                int xOsztok = 0;
+                for (int y = 1; y < x; y++) if (x % y == 0) xOsztok += y;
+                if (x == xOsztok) Console.WriteLine(x);
+            }
+        }
+        static void F41()
+        {
+            string down = "ABCDEFGHIJKLMNOQPRSTUVWXYZ";
+            while (true)
+            {
+                Console.WriteLine(down);
+                char f = down[0];
+                if (f == 'Z') return;
+                down = down.Substring(1, down.Length-1);
+                down = down + f;
+            }
+        }
+        static void F42()
+        {
+            int length = InputNumber("Add meg a tömb darabszámát: ");
+            int x = 0;
+            int[] _1 = new int[length];
+            while (x < length)
+            {
+                _1[x] = InputNumber($"Add meg a {x+1}/{length}. számot: ");
+                x++;
+            }
+            x = 0;
+            foreach (int eget in _1) if (eget % 2 == 1) x++;
+            Console.WriteLine($"Páratlan számok száma: {x}");
+        }
+        static void F43()
+        {
+            int length = InputNumber("Add meg a tömb darabszámát: ");
+            int x = 0;
+            int[] _1 = new int[length];
+            while (x < length)
+            {
+                _1[x] = InputNumber($"Add meg a {x + 1}/{length}. számot: ");
+                x++;
+            }
+            x = 0;
+            foreach (int eget in _1) if (eget % 2 == 0) x += eget;
+            Console.WriteLine($"Páros számok összege: {x}");
+        }
+        static void F44()
+        {
+            int length = InputNumber("Add meg a tömb darabszámát: ");
+            int x = 0;
+            int[] _1 = new int[length];
+            while (x < length)
+            {
+                _1[x] = InputNumber($"Add meg a {x + 1}/{length}. számot: ");
+                x++;
+            }
+            for (int eget = 0; eget < _1.Length; eget++) if (_1[eget] % 2 == 0)
+                {
+                    Console.WriteLine($"{eget+1}. {_1[eget]}");
+                }
         }
         static int InputNumber(string x)
         {
@@ -360,7 +509,7 @@
         }
         static void Main()
         {
-            Console.WriteLine("1. feladat");
+            /*Console.WriteLine("1. feladat");
             F1();
             Console.WriteLine("\n2. feladat");
             F2();
@@ -428,6 +577,26 @@
             F33();
             Console.WriteLine("\n34. feladat");
             F34();
+            Console.WriteLine("\n35. feladat");
+            F35();
+            Console.WriteLine("\n36. feladat");
+            F36();
+            Console.WriteLine("\n37. feladat");
+            F37();
+            Console.WriteLine("\n38. feladat");
+            F38();
+            Console.WriteLine("\n39. feladat");
+            F39();
+            Console.WriteLine("\n40. feladat");
+            F40();
+            Console.WriteLine("\n41. feladat");
+            F41();*/
+            Console.WriteLine("\n42. feladat");
+            F42();
+            Console.WriteLine("\n43. feladat");
+            F43();
+            Console.WriteLine("\n44. feladat");
+            F44();
         }
     }
 }

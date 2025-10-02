@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Drawing;
+using System.Text;
 
 namespace SuranyiszFeladatsor
 {
@@ -492,9 +493,81 @@ namespace SuranyiszFeladatsor
                 x++;
             }
             for (int eget = 0; eget < _1.Length; eget++) if (_1[eget] % 2 == 0)
+            {
+                Console.WriteLine($"{eget+1}. {_1[eget]}");
+            }
+        }
+        static void F45()
+        {
+            int length = InputNumber("Add meg a tömb darabszámát: ");
+            int[] _1 = new int[length];
+            for (int x = 0; x < length; x++) _1[x] = InputNumber($"Add meg a {x + 1}/{length}. számot: ");
+            int point = InputNumber("Keresendő szám: ");
+            bool e = true;
+            int y = 0;
+            while (e && y < length)
+            {
+                if (_1[y] == point)
                 {
-                    Console.WriteLine($"{eget+1}. {_1[eget]}");
+                    Console.WriteLine($"{point} első indexe: {y}");
+                    e = false;
                 }
+                y++;
+            }
+            if (e) Console.WriteLine("Nincs ilyen szám a tömbben.");
+        }
+        static void F46()
+        {
+            int length = InputNumber("Add meg a tömb darabszámát: ");
+            int[] _1 = new int[length];
+            for (int x = 0; x < length; x++) _1[x] = InputNumber($"Add meg a {x + 1}/{length}. számot: ");
+            int point = InputNumber("Keresendő szám: ");
+            int count = 0;
+            for (int a = 0; a < length; a++)
+            {
+                if (_1[a] == point) count++;
+            }
+            Console.WriteLine($"A szám {count}x szerepel a tömbben.");
+        }
+
+        static void F47()
+        {
+            int length = InputNumber("Add meg a tömb darabszámát: ");
+            string[] _1 = new string[length];
+            for (int x = 0; x < length; x++) InputString($"Add meg a {x + 1}/{length}. keresztnevet: ");
+            string auhhhhhhhhh = InputString("Keresett keresztnév: ");
+            int count = 0;
+            for (int a = 0; a < length; a++) if (_1[a] == auhhhhhhhhh) count++;
+            Console.WriteLine($"A név {count}x szerepel a tömbben.");
+        }
+        static void F48()
+        {
+            int length = InputNumber("Add meg a tömb darabszámát: ");
+            int[] _1 = new int[length];
+            for (int x = 0; x < length; x++) _1[x] = InputNumber($"Add meg a {x + 1}/{length}. számot: ");
+            Array.Sort(_1);
+            Console.WriteLine($"Legnagyobb ({_1[_1.Length - 1]}) és legkisebb ({_1[0]}) szám különbsége: {(_1[_1.Length - 1] - _1[0])}");
+        }
+        static void F49()
+        {
+            int length = InputNumber("Add meg a tömb darabszámát: ");
+            int[] _1 = new int[length];
+            for (int x = 0; x < length; x++) _1[x] = InputNumber($"Add meg a {x + 1}/{length}. számot: ");
+            for (int i = length; i >= 2; i--) {
+                for (int j = 0; j < i-1; j++) {
+                    if(_1[j] > _1[j + 1]) {
+                        int z = _1[j+1];
+                        _1[j+1] = _1[j];
+                        _1[j] = z;
+                    }
+                }
+            }
+            Console.WriteLine($"A számok növekvő sorrendben: {string.Join(", ", _1)}");
+        }
+        static void F50()
+        {
+            string h = InputString("Kérem a szót: ");
+            Console.WriteLine(string.Join(" ", h.ToCharArray()));
         }
         static int InputNumber(string x)
         {
@@ -507,9 +580,14 @@ namespace SuranyiszFeladatsor
                 return 0;
             }
         }
+        static string InputString(string x)
+        {
+            Console.Write(x);
+            return Console.ReadLine();
+        }
         static void Main()
         {
-            /*Console.WriteLine("1. feladat");
+            Console.WriteLine("1. feladat");
             F1();
             Console.WriteLine("\n2. feladat");
             F2();
@@ -590,13 +668,25 @@ namespace SuranyiszFeladatsor
             Console.WriteLine("\n40. feladat");
             F40();
             Console.WriteLine("\n41. feladat");
-            F41();*/
+            F41();
             Console.WriteLine("\n42. feladat");
             F42();
             Console.WriteLine("\n43. feladat");
             F43();
             Console.WriteLine("\n44. feladat");
             F44();
+            Console.WriteLine("\n45. feladat");
+            F45();
+            Console.WriteLine("\n46. feladat");
+            F46();
+            Console.WriteLine("\n47. feladat");
+            F47();
+            Console.WriteLine("\n48. feladat");
+            F48();
+            Console.WriteLine("\n49. feladat");
+            F49();
+            Console.WriteLine("\n50. feladat");
+            F50();
         }
     }
 }

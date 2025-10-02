@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+using System.Drawing;
+using System.Globalization;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SuranyiszFeladatsor
 {
@@ -569,6 +571,104 @@ namespace SuranyiszFeladatsor
             string h = InputString("Kérem a szót: ");
             Console.WriteLine(string.Join(" ", h.ToCharArray()));
         }
+        static void F51()
+        {
+            string h = InputString("Kérem a szót: ");
+            string taboo = InputString("Kérem a tabu betűt: ");
+            h = h.Replace(taboo, "");
+            Console.WriteLine(h);
+        }
+        static void F52()
+        {
+            string h = InputString("Kérem a szót: ");
+            for (int i = 1; i < h.Length; i += 2) Console.WriteLine(h[i]);
+        }
+        static void F53()
+        {
+            char[] h = InputString("Kérem a szót: ").ToCharArray();
+            foreach (char eff in h) Console.WriteLine(Convert.ToInt32(eff));
+        }
+        static void F54()
+        {
+            string text = InputString("Kérem a szót: ");
+            Console.Write('\n');
+            for (int _ = text.Length-1; _ >= 0; _--) Console.Write(text[_]);
+            Console.Write('\n');
+        }
+        static void F55()
+        {
+            string text = InputString("Kérem a mondatot: ");
+            foreach (string altext in text.Split(" ")) Console.WriteLine(altext);
+        }
+        static void F56()
+        {
+            string word = InputString("Kérem a szót: ");
+            Console.Write("\n");
+            for (int bung = word.Length - 1; bung >= 0; bung--) Console.Write(char.ToUpper(word[bung]));
+            Console.Write("\n");
+        }
+        static void F57()
+        {
+            string text = InputString("Kérem a mondatot: ");
+            foreach (string altext in text.Split(" "))
+                Console.WriteLine(char.ToUpper(altext[0])+altext.Substring(1, altext.Length-1));
+        }
+        static void F58()
+        {
+            string[] f58 = File.ReadAllLines("forras58.be");
+            int[] ints = new int[int.Parse(f58[0])];
+            for (int z = 1; z < f58.Length; z++) ints[z-1] = int.Parse(f58[z]);
+            Array.Sort(ints);
+            Console.WriteLine($"Legnagyobb szám: {ints[ints.Length-1]}");
+        }
+        static void F59()
+        {
+            string[] f59 = File.ReadAllLines("forras59.be");
+            int[] ints = new int[int.Parse(f59[0])];
+            for (int z = 1; z < f59.Length; z++) ints[z - 1] = int.Parse(f59[z]);
+            Array.Sort(ints);
+            int printable = 0;
+            bool go = true;
+            int x = 0;
+            while (go && x < ints.Length)
+            {
+                if (ints[x] % 2 == 0)
+                {
+                    printable = ints[x];
+                    go = false;
+                }
+                x++;
+            }
+            Console.WriteLine($"Legkisebb páros szám: {printable}");
+        }
+        static void F60()
+        {
+            string[] f60 = File.ReadAllLines("forras60.be");
+            int[] ints = new int[int.Parse(f60[0])];
+            for (int z = 1; z < f60.Length; z++) ints[z - 1] = int.Parse(f60[z]);
+            Array.Sort(ints);
+            int printable = 0;
+            int yield = 0;
+            foreach (int x in ints)
+            {
+                if (x % 2 == 1)
+                {
+                    printable += x;
+                    yield++;
+                }
+            }
+            Console.WriteLine($"Páratlan számok átlaga: {printable/yield}");
+        }
+        static void F61()
+        {
+            string[] f61 = File.ReadAllLines("forras61.be");
+            string[] f61LengthSorted = new string[int.Parse(f61[0])];
+            for (int z = 1; z < f61.Length; z++)
+            {
+                // pls folytass
+                f61LengthSorted[z - 1] = $"{f61[z].Length};{f61[z]}";
+            }
+        }
         static int InputNumber(string x)
         {
             Console.Write(x);
@@ -587,7 +687,7 @@ namespace SuranyiszFeladatsor
         }
         static void Main()
         {
-            Console.WriteLine("1. feladat");
+            /*Console.WriteLine("1. feladat");
             F1();
             Console.WriteLine("\n2. feladat");
             F2();
@@ -687,6 +787,28 @@ namespace SuranyiszFeladatsor
             F49();
             Console.WriteLine("\n50. feladat");
             F50();
+            Console.WriteLine("\n51. feladat");
+            F51();
+            Console.WriteLine("\n52. feladat");
+            F52();
+            Console.WriteLine("\n53. feladat");
+            F53();
+            Console.WriteLine("\n54. feladat");
+            F54();
+            Console.WriteLine("\n55. feladat");
+            F55();
+            Console.WriteLine("\n56. feladat");
+            F56();
+            Console.WriteLine("\n57. feladat");
+            F57();*/
+            Console.WriteLine("\n58. feladat");
+            F58();
+            Console.WriteLine("\n59. feladat");
+            F59();
+            Console.WriteLine("\n60. feladat");
+            F60();
+            Console.WriteLine("\n61. feladat");
+            F61();
         }
     }
 }

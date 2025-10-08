@@ -662,12 +662,189 @@ namespace SuranyiszFeladatsor
         static void F61()
         {
             string[] f61 = File.ReadAllLines("forras61.be");
-            string[] f61LengthSorted = new string[int.Parse(f61[0])];
-            for (int z = 1; z < f61.Length; z++)
+            string[] f61Lengths = new string[f61.Length-1];
+            for (int x = 1; x < f61.Length; x++)
             {
-                // pls folytass
-                f61LengthSorted[z - 1] = $"{f61[z].Length};{f61[z]}";
+                int length0 = f61[x].Length;
+                string length = (length0 < 10) ? $"0{length0}" : $"{length0}";
+                f61Lengths[x - 1] = $"{length};{f61[x]}";
             }
+            Array.Sort(f61Lengths);
+            Console.WriteLine($"Leghosszabb szó: {f61Lengths[f61Lengths.Length - 1].Split(";")[1]}");
+        }
+        static void F62()
+        {
+            Console.Write("'a' betűvel kezdődő szavak: ");
+            string[] data = File.ReadAllLines("forras62.be");
+            foreach (string a in data)
+            {
+                if (a.Substring(0, 1) == "a")
+                {
+                    Console.Write($"{a}, ");
+                }
+            }
+            Console.WriteLine();
+        }
+        static void F63()
+        {
+            string[] f63_0 = File.ReadAllLines("forras63.be");
+            int[] f63 = new int[int.Parse(f63_0[0])];
+            int[] f63sorted = new int[int.Parse(f63_0[0])];
+            for (int x = 1; x < f63_0.Length; x++) f63[x-1] = int.Parse(f63_0[x]);
+            for (int x = 0; x < f63.Length; x++)
+            {
+                for (int y = f63.Length-1; y > 0; y--) if (f63[y] > f63[y - 1])
+                    {
+                    int z = f63[y-1];
+                    f63[y-1] = f63[y];
+                    f63[y] = z;
+                }
+            }
+            Console.WriteLine($"A számok csökkenő sorrendben: {string.Join(", ", f63)}");
+        }
+        static void F64()
+        {
+            string[] f64 = DataConvert("forras64.be");
+            Array.Sort(f64);
+            Console.WriteLine($"Szavak ABC-sorrendben: {string.Join(", ", f64)}");
+        }
+        static void F65()
+        {
+            int[] f65 = IntList(65);
+            for (int x = 0; x < f65.Length; x++)
+            {
+                for (int y = f65.Length - 1; y > 0; y--) if (f65[y] > f65[y - 1])
+                {
+                    int z = f65[y - 1];
+                    f65[y - 1] = f65[y];
+                    f65[y] = z;
+                }
+            }
+            Console.WriteLine($"Legkisebb szám: {f65[f65.Length-1]}");
+        }
+        static void F66()
+        {
+            int[] f66 = IntList(66, 2);
+            Array.Sort(f66);
+            Console.WriteLine($"Legnagyobb páros: {f66[f66.Length-1]}");
+        }
+        static void F67()
+        {
+            int[] f67 = IntList(67, 2);
+            int x = 0;
+            foreach (int y in f67) x += y;
+            Console.WriteLine($"Páros számok összege: {x}");
+        }
+        static void F68()
+        {
+            string[] f68 = File.ReadAllLines("forras68.be");
+            string[] f68Lengths = new string[f68.Length];
+            for (int y = 0; y < f68.Length; y++)
+            {
+                f68Lengths[y] = ((f68[y].Length < 10) ? $"0{f68[y].Length}" : $"{f68[y].Length}") + $";{f68[y]}";
+            }
+            Array.Sort(f68Lengths);
+            Console.WriteLine($"Legrövidebb szó: {f68Lengths[0].Split(";")[1]}");
+        }
+        static void F69()
+        {
+            string[] f69 = File.ReadAllLines("forras69.be");
+            int g = 0;
+            foreach (string ize in f69) if (ize.Substring(0, 1) != "a") g++;
+            string[] f69_notA = new string[g];
+            g = 0;
+            for (int e = 0; e < f69.Length; e++)
+            {
+                if (f69[e].Substring(0, 1) != "a")
+                {
+                    f69_notA[g] = f69[e];
+                    g++;
+                }
+            }
+            Console.WriteLine($"Nem 'a' betűvel kezdődő szavak: {string.Join(", ", f69_notA)}");
+        }
+        static void F70()
+        {
+            Console.WriteLine("a)");
+            int[] f70 = IntList(70);
+            int sum = 0;
+            int avg = 0;
+            foreach (int z in f70)
+            {
+                sum += z;
+                avg += z;
+            }
+            float avg2 = avg / f70.Length;
+            int sumString = int.Parse(sum.ToString().Substring(sum.ToString().Length - 2, 2));
+            int sum2 = sum - sumString;
+            if (sumString >= 50) sum2 += 100;
+            Console.WriteLine($"Átlag: {avg2}\nÖsszeg 100-ra kerekítve: {sum2}");
+            Console.WriteLine("b)");
+            sum = 0;
+            avg = 0;
+            List<int> primes = new();
+            foreach (int z in f70) if (z > avg) avg = z;
+            for (int lift = 2; lift <= avg; lift++) if (IsPrime(lift))
+            {
+                sum++;
+                primes.Add(lift);
+            }
+            Console.WriteLine($"A tömbben {sum} prímszám van.");
+            Console.WriteLine("c)");
+            List<int> veryLow = new();
+            foreach (int z in f70)
+            {
+                if (z % 2 == 0 && z < primes[0]) veryLow.Add(z);
+            }
+            sum = 0;
+            foreach (int z in veryLow) sum += z;
+            Console.WriteLine($"A legkisebb prímszám ({primes[0]}) előtt álló páros számok átlaga: {sum / veryLow.Count}");
+            Console.WriteLine("d)");
+            avg = 0;
+            foreach (int z in f70) if (z > primes[0] && z < primes[1] && IsPrime(z)) avg++;
+            Console.WriteLine($"Az 1. ({primes[0]}) és 2. ({primes[1]}) közötti számok összege: {avg}");
+            Console.WriteLine("e)");
+            int[] biggest = new int[2];
+            int[] smallest = new int[2];
+            sum = 0;
+            for (int x = 0; x < f70.Length; x++)
+            {
+                if (f70[x] > sum)
+                {
+                    sum = f70[x];
+                    biggest = [x + 1, sum];
+                }
+            }
+            for (int x = 0; x < f70.Length; x++)
+            {
+                if (f70[x] < sum)
+                {
+                    sum = f70[x];
+                    smallest = [x + 1, sum];
+                }
+            }
+            Console.WriteLine($"Legkisebb szám sorszáma: {smallest[0]}.\nLegnagyobb szám sorszáma: {biggest[0]}.");
+            Console.WriteLine($"f)\nA számok terjedelme: {biggest[1]} - {smallest[1]} = {biggest[1] - smallest[1]}");
+        }
+        static bool IsPrime(int x)
+        {
+            int sum = 0;
+            for (int c = 1; c <= x; c++) if (x % c == 0) sum += c;
+            return x == sum - 1;
+        }
+        static int[] IntList(int x, int modulus = 1)
+        {
+            string[] y = File.ReadAllLines($"forras{x}.be");
+            int[] z = new int[y.Length];
+            for (int g = 0; g < y.Length; g++) if (int.Parse(y[g]) % modulus == 0) z[g] = int.Parse(y[g]);
+            return z;
+        }
+        static string[] DataConvert(string x)
+        {
+            string[] y = File.ReadAllLines(x);
+            string[] w = new string[int.Parse(y[0])];
+            for (int z = 1; z < y.Length; z++) w[z - 1] = y[z];
+            return w;
         }
         static int InputNumber(string x)
         {
@@ -809,6 +986,24 @@ namespace SuranyiszFeladatsor
             F60();
             Console.WriteLine("\n61. feladat");
             F61();
+            Console.WriteLine("\n62. feladat");
+            F62();
+            Console.WriteLine("\n63. feladat");
+            F63();
+            Console.WriteLine("\n64. feladat");
+            F64();
+            Console.WriteLine("\n65. feladat");
+            F65();
+            Console.WriteLine("\n66. feladat");
+            F66();
+            Console.WriteLine("\n67. feladat");
+            F67();
+            Console.WriteLine("\n68. feladat");
+            F68();
+            Console.WriteLine("\n69. feladat");
+            F69();
+            Console.WriteLine("\n70. feladat");
+            F70();
         }
     }
 }

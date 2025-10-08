@@ -1,0 +1,12 @@
+11
+kion
+rani
+nirmala
+surak
+bunga
+binga
+beshte
+ono
+octavio
+anga
+tufani

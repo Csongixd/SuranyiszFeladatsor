@@ -825,9 +825,91 @@ namespace SuranyiszFeladatsor
             }
             Console.WriteLine($"Legkisebb szám sorszáma: {smallest[0]}.\nLegnagyobb szám sorszáma: {biggest[0]}.");
             Console.WriteLine($"f)\nA számok terjedelme: {biggest[1]} - {smallest[1]} = {biggest[1] - smallest[1]}");
+            Console.WriteLine("g)");
+            List<int> numbers3 = new();
+            foreach (int ä in f70)
+            {
+                if (ä < biggest[1] && ä > smallest[1] && ä % 3 == 0)
+                {
+                    numbers3.Add(ä);
+                }
+            }
+            avg2 = Average(numbers3);
+            Console.WriteLine($"A legkisebb és legnagyobb szám közötti hárommal osztható számok átlaga: {avg2}");
+            Console.WriteLine("h)");
+            int[] f70_sorted = new int[f70.Length];
+            for (int u = 0; u < f70.Length; u++) f70_sorted[u] = f70[u];
+            Array.Sort(f70_sorted);
+            sum = 0;
+            avg = 0;
+            for (int u7 = f70_sorted.Length - 1; u7 >= 0; u7--) if (f70_sorted[u7] % 2 == 0) sum = f70_sorted[u7];
+            for (int u8 = 0; u8 < f70_sorted.Length; u8++) if (f70_sorted[u8] % 2 == 1) avg = f70_sorted[u8];
+            numbers3 = new();
+            foreach (int number in f70)
+            {
+                if (number > sum && number < avg && number % 2 == 1) numbers3.Add(number);
+            }
+            avg2 = Average(numbers3);
+            Console.WriteLine($"A legkisebb páros ({sum}) és legnagyobb páratlan ({avg}) közötti páratlan számok átlaga: {avg2}");
+            Console.WriteLine("i)");
+            sum = 0;
+            avg = 0;
+            while (sum < f70_sorted.Length && avg < 900)
+            {
+                sum++;
+                avg = f70_sorted[sum-1];
+            }
+            if (avg >= 900)
+            {
+                sum--;
+                avg = f70_sorted[sum-1];
+            }
+            Console.WriteLine($"A 900-hoz legközelebb lévő szám sorszáma: {sum}. (Maga a szám: {avg})");
+            Console.WriteLine("j)");
+            primes = new();
+            for (int i = sum - 1; i < f70_sorted.Length; i++) if (IsPrime(f70_sorted[i])) primes.Add(f70_sorted[i]);
+            Console.WriteLine($"A {avg} utáni prímszámok összege: {Sum(primes)}");
+            Console.WriteLine("k)");
+            sum = f70_sorted[f70_sorted.Length-2];
+            primes = new();
+            for (int i = 1; i < sum; i++) if (IsPrime(i) && sum % i == 0) primes.Add(i);
+            Console.WriteLine($"A második legnagyobb szám ({sum}) prímosztói: {string.Join(", ", primes.ToArray())}");
+            Console.WriteLine("l)");
+            for (int u7 = f70_sorted.Length - 1; u7 >= 0; u7--) if (f70_sorted[u7] % 3 == 0) sum = f70_sorted[u7];
+            for (int u8 = 0; u8 < f70_sorted.Length; u8++) if (f70_sorted[u8] % 5 == 0) avg = f70_sorted[u8];
+            List<int> odds = new();
+            foreach (int u in f70) if (u % 2 == 1) odds.Add(u);
+            primes = new();
+            foreach (int u in odds) 
+            {
+                if (u > sum && u < avg && u != 1)
+                {
+                    numbers3 = new();
+                    for (int i = 0; i <= u; i++)
+                    {
+                        if (IsPrime(i) && u % i == 0)
+                        {
+                            numbers3.Add(i);
+                        }
+                    }
+                    primes.Add(numbers3[numbers3.Count - 1]);
+                }
+            }
+            Console.WriteLine($"A legkisebb hárommal osztahtó szám ({sum}) és legnagyobb öttel osztható szám ({avg}) közötti páratlan számok legnagyobb prímosztóinak összege: {Sum(primes)}");
+        }
+        static int Sum(List<int> x)
+        {
+            int y = 0;
+            foreach (int f in x) y += f;
+            return y;
+        }
+        static float Average(List<int> x)
+        {
+            return Sum(x) / x.Count;
         }
         static bool IsPrime(int x)
         {
+            if (x < 2) return false;
             int sum = 0;
             for (int c = 1; c <= x; c++) if (x % c == 0) sum += c;
             return x == sum - 1;

@@ -896,6 +896,40 @@ namespace SuranyiszFeladatsor
                 }
             }
             Console.WriteLine($"A legkisebb hárommal osztahtó szám ({sum}) és legnagyobb öttel osztható szám ({avg}) közötti páratlan számok legnagyobb prímosztóinak összege: {Sum(primes)}");
+            Console.WriteLine("m)");
+            numbers3 = new();
+            for (int c = 0; c < f70.Length - 1; c++) numbers3.Add(Math.Abs(f70[c+1]-f70[c]));
+            Console.WriteLine($"Az egymás utáni számok eltéréseinek átlaga: {Average(numbers3)}");
+            Console.WriteLine("n)");
+            sum = 0;
+            avg = f70_sorted.Length - 1;
+            while (avg >= 0 && sum == 0)
+            { 
+                if (f70_sorted[avg] % 5 == 0 && f70_sorted[avg] % 3 == 0 || f70_sorted[avg] % 2 == 0)
+                {
+                    sum = f70_sorted[avg];
+                }
+                avg--;
+            }
+            avg = 0;
+            for (int l = 1; l <= sum; l++) if (sum % l == 0) avg++;
+            Console.WriteLine($"A legnagyobb 5-tel és 5-nél kisebb prímszámmal is osztható szám ({sum}) osztóinak összege: {avg}");
+            Console.WriteLine("o)");
+            string[] numbersWithPrimeDividors = new string[f70.Length];
+            for (int d = 0; d < f70.Length; d++)
+            {
+                sum = 0;
+                for (int z = 1; z <= f70[d]; z++) if (IsPrime(z) && f70[d] % z == 0) sum++;
+                string digit2 = sum < 10 ? $"0{sum}" : $"{sum}";
+                numbersWithPrimeDividors[d] = $"{digit2};{f70[d]}";
+            }
+            Array.Sort(numbersWithPrimeDividors);
+            sum = int.Parse(numbersWithPrimeDividors[numbersWithPrimeDividors.Length - 1].Split(";")[1]);
+            avg = 0;
+            for (int s = 1; s <= sum; s++) if (sum % s == 0) avg += s;
+            string dividerForPrint = numbersWithPrimeDividors[numbersWithPrimeDividors.Length - 1].Split(";")[0];
+            if (dividerForPrint[0] == '0') dividerForPrint = $"{dividerForPrint[1]}";
+            Console.WriteLine($"A legtöbb prímosztóval rendelkező szám ({sum}, {dividerForPrint} osztó) osztóinak összege: {avg}");
         }
         static int Sum(List<int> x)
         {
